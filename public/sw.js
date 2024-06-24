@@ -1,60 +1,58 @@
 importScripts(
-    'https://storage.googleapis.com/workbox-cdn/releases/6.5.4/workbox-sw.js'
-);
+    'https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js'
+  );
 
-// This is your Service Worker, you can put any of your custom Service Worker
-// code in this file, above the `precacheAndRoute` line.
+  import { clientsClaim } from 'workbox-core';
 
-// When widget is installed/pinned, push initial state.
-self.addEventListener('widgetinstall', (event) => {
-    event.waitUntil(updateWidget(event));
-});
+  self.skipWaiting();
+  clientsClaim();
 
-// When widget is shown, update content to ensure it is up-to-date.
-self.addEventListener('widgetresume', (event) => {
-    event.waitUntil(updateWidget(event));
-});
+  workbox.precaching.cleanupOutdatedCaches();
 
-// When the user clicks an element with an associated Action.Execute,
-// handle according to the 'verb' in event.action.
-self.addEventListener('widgetclick', (event) => {
-if (event.action == "updateName") {
-    event.waitUntil(updateName(event));
-}
-});
+  console.log("hello world");
 
-// When the widget is uninstalled/unpinned, clean up any unnecessary
-// periodic sync or widget-related state.
-self.addEventListener('widgetuninstall', (event) => {});
+  self.addEventListener('push', function(event) {
+    const data = JSON.parse(event.data.text());
 
-const updateWidget = async (event) => {
-// The widget definition represents the fields specified in the manifest.
-    const widgetDefinition = event.widget.definition;
+    event.waitUntil(
+      registration.showNotification(data.title, {
+        body: data.message,
+        icon: 'assets/media/toast.jpg'
+      })
+    );
+  });
 
-    // Fetch the template and data defined in the manifest to generate the payload.
-    const payload = {
-        template: JSON.stringify(await (await fetch(widgetDefinition.msAcTemplate)).json()),
-        data: JSON.stringify(await (await fetch(widgetDefinition.data)).json()),
-    };
+  self.addEventListener('notificationclick', function(event) {
+    event.notification.close();
 
-    // Push payload to widget.
-    await self.widgets.updateByInstanceId(event.instanceId, payload);
-}
+    event.waitUntil(
+      clients.matchAll({ type: 'window', includeUncontrolled: true })
+        .then(function(clientList) {
+          if (clientList.length > 0) {
+            let client = clientList[0];
 
-const updateName = async (event) => {
-    const name = event.data.json().name;
+            for (let i = 0; i < clientList.length; i++) {
+              if (clientList[i].focused) {
+                client = clientList[i];
+              }
+            }
 
-    // The widget definition represents the fields specified in the manifest.
-    const widgetDefinition = event.widget.definition;
+            return client.focus();
+          }
 
-    // Fetch the template and data defined in the manifest to generate the payload.
-    const payload = {
-        template: JSON.stringify(await (await fetch(widgetDefinition.msAcTemplate)).json()),
-        data: JSON.stringify({name}),
-    };
+          return clients.openWindow('/');
+        })
+    );
+  });
 
-    // Push payload to widget.
-    await self.widgets.updateByInstanceId(event.instanceId, payload);
-}
+  self.addEventListener('pushsubscriptionchange', function(event) {
+    event.waitUntil(
+      Promise.all([
+        Promise.resolve(event.oldSubscription ? deleteSubscription(event.oldSubscription) : true),
+          Promise.resolve(event.newSubscription ? event.newSubscription : subscribePush(registration))
+            .then(function(sub) { return saveSubscription(sub); })
+      ])
+    );
+  });
 
-workbox.precaching.precacheAndRoute(self.__WB_MANIFEST || []);
+  workbox.precaching.precacheAndRoute(self.__WB_MANIFEST || []);
