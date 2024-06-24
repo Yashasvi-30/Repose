@@ -1,0 +1,65 @@
+Microsoft.PWABuilder.Windows.Chromium.Models.ProcessException: The makeappx.exe process exited with exit code 1.
+
+Process: C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\makeappx.exe
+
+Standard output: Microsoft (R) MakeAppx Tool
+Copyright (C) 2013 Microsoft.  All rights reserved.
+
+The path (/p) parameter is: "\\?\C:\Users\ContainerAdministrator\AppData\Local\Temp\classic-package-2ab97743-d70e-408d-8c29-72bfde26b976\0a4819e0-622d-4011-a783-0cb0c0e58776.appx"
+The content directory (/d) parameter is: "\\?\C:\Users\ContainerAdministrator\AppData\Local\Temp\classic-package-2ab97743-d70e-408d-8c29-72bfde26b976\appx-unzipped"
+Enumerating files from directory "\\?\C:\Users\ContainerAdministrator\AppData\Local\Temp\classic-package-2ab97743-d70e-408d-8c29-72bfde26b976\appx-unzipped"
+Packing 85 file(s) in "\\?\C:\Users\ContainerAdministrator\AppData\Local\Temp\classic-package-2ab97743-d70e-408d-8c29-72bfde26b976\appx-unzipped" (content directory) to "\\?\C:\Users\ContainerAdministrator\AppData\Local\Temp\classic-package-2ab97743-d70e-408d-8c29-72bfde26b976\0a4819e0-622d-4011-a783-0cb0c0e58776.appx" (output file name).
+Memory limit defaulting to 804755456 bytes.
+Using "\\?\C:\Users\ContainerAdministrator\AppData\Local\Temp\classic-package-2ab97743-d70e-408d-8c29-72bfde26b976\appx-unzipped\AppxManifest.xml" as the manifest for the package.
+MakeAppx : error: Error info: error C00CE16A: App manifest validation error: The app manifest must be valid as per schema: Line 12, Column 6, Reason: Union doesn't support this value.
+The element '{http://schemas.microsoft.com/appx/manifest/foundation/windows10}DisplayName' with value 'Repose:MoodJournaling ' failed to parse.
+
+MakeAppx : error: Package creation failed.
+MakeAppx : error: 0x80080204 - The specified package format is not valid: The package manifest is not valid.
+
+
+Standard error: 
+   at Microsoft.PWABuilder.Windows.Chromium.Services.ProcessRunner.Run(String processPath, String processArgs, Nullable`1 killTime, String workingDirectory, Encoding outputEncoding) in C:\app\Services\ProcessRunner.cs:line 79
+   at Microsoft.PWABuilder.Windows.Chromium.Services.MakeAppxWrapper.MakeAppx(String projectDirectory, String outputDirectory) in C:\app\Services\MakeAppxWrapper.cs:line 126
+   at Microsoft.PWABuilder.Windows.Chromium.Services.AppxUpdaterBase.GenerateAppx(String appxTemplatePath, Version appVersion, WindowsAppPackageOptions options, WebAppManifestContext webManifest, ImageGeneratorResult appImages, String outputDirectory) in C:\app\Services\AppxUpdaterBase.cs:line 57
+   at Microsoft.PWABuilder.Windows.Chromium.Services.ClassicWindowsPackageCreator.Create(WindowsAppPackageOptions options, WebAppManifestContext webManifest, ImageGeneratorResult appImages, String outputDirectory, String edgeAppId) in C:\app\Services\ClassicWindowsPackageCreator.cs:line 53
+   at Microsoft.PWABuilder.Windows.Chromium.Services.WindowsAppPackageCreator.CreateClassicWindowsPackage(WindowsAppPackageOptions options, WebAppManifestContext manifest, ImageGeneratorResult appImages, String edgeAppId) in C:\app\Services\WindowsAppPackageCreator.cs:line 162
+   at Microsoft.PWABuilder.Windows.Chromium.Services.WindowsAppPackageCreator.GenerateZip(WindowsAppPackageOptions options) in C:\app\Services\WindowsAppPackageCreator.cs:line 139
+   at Microsoft.PWABuilder.Windows.Chromium.Services.WindowsAppPackageCreator.CreateAppPackage(WindowsAppPackageOptions options, AnalyticsInfo analyticsInfo) in C:\app\Services\WindowsAppPackageCreator.cs:line 72
+   at Microsoft.PWABuilder.Windows.Chromium.Controllers.MsixController.CreateAppPackage(WindowsAppPackageOptions options, HttpContext httpContext) in C:\app\Controllers\MsixController.cs:line 153
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+
+HEADERS
+=======
+Accept: */*
+Connection: keep-alive
+Host: pwabuilder-windows-docker.azurewebsites.net
+User-Agent: node-fetch/1.0 (+https://github.com/bitinn/node-fetch)
+Accept-Encoding: gzip,deflate
+Content-Type: application/json
+Max-Forwards: 9
+Content-Length: 215
+Platform-Identifier: PWAStudio
+Correlation-Id: 04d67f06-d10f-470f-a22f-c91200a261101719220444472
+X-ARR-LOG-ID: 8209776f-e49f-4a6f-b35a-4ec7d30cdcaf
+CLIENT-IP: 49.36.168.165:58576
+DISGUISED-HOST: pwabuilder-windows-docker.azurewebsites.net
+X-SITE-DEPLOYMENT-ID: pwabuilder-windows-docker
+WAS-DEFAULT-HOSTNAME: pwabuilder-windows-docker.azurewebsites.net
+X-Forwarded-Proto: https
+X-AppService-Proto: https
+X-ARR-SSL: 2048|256|CN=Microsoft Azure RSA TLS Issuing CA 03, O=Microsoft Corporation, C=US|CN=*.azurewebsites.net, O=Microsoft Corporation, L=Redmond, S=WA, C=US
+X-Forwarded-TlsVersion: 1.3
+X-Forwarded-For: 49.36.168.165:58576, 49.36.168.165
+X-Original-URL: /msix/generatezip
+X-WAWS-Unencoded-URL: /msix/generatezip
