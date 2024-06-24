@@ -1,14 +1,16 @@
 {
   "id": "/",
   "scope": "/",
-  "name": "PWA Starter",
+  "lang": "en-us",
+  "name": "Repose intelligent daily mood journal",
   "display": "standalone",
   "start_url": "/",
-  "short_name": "starter",
-  "theme_color": "#E1477E",
-  "description": "This is a PWA Starter app",
+  "short_name": "Repose",
+  "theme_color": "#B6E2D3",
+  "description": "Repose is a mental health journal app that serves as your personal mood tracking companion and helps you organize and reflect upon your daily thoughts.",
   "orientation": "any",
-  "background_color": "#E1477E",
+  "background_color": "#FAE8E0",
+  "dir": "ltr",
   "related_applications": [],
   "prefer_related_applications": false,
   "icons": [
@@ -46,14 +48,15 @@
     "simple"
   ],
   "categories": [
-    "utility"
+    "health",
+    "lifestyle"
   ],
   "shortcuts": [
     {
-      "name": "Open About",
-      "short_name": "About",
-      "description": "Open the about page",
-      "url": "/about",
+      "name": "Open Journal",
+      "short_name": "Journal",
+      "description": "Open the journal page",
+      "url": "/journal",
       "icons": [{ "src": "assets/icons/icon_192.png", "sizes": "192x192" }]
     }
   ]
