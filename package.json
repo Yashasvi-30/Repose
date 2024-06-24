@@ -17,7 +17,9 @@
   "dependencies": {
     "@shoelace-style/shoelace": "^2.15.0",
     "@thepassle/app-tools": "^0.9.12",
+    "@vaadin/router": "^1.7.5",
     "lit": "^3.1.2",
+    "localforage": "^1.10.0",
     "urlpattern-polyfill": "^10.0.0",
     "workbox-build": "^7.0.0",
     "workbox-core": "^7.0.0",
